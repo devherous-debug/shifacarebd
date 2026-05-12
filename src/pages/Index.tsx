@@ -1,16 +1,19 @@
-import HeroSection from "@/components/HeroSection";
 import BenefitsSection from "@/components/BenefitsSection";
+import FooterSection from "@/components/FooterSection";
+import HeroSection from "@/components/HeroSection";
+import OrderSection from "@/components/OrderSection";
 import PricingBanner from "@/components/PricingBanner";
 import ProductsSection from "@/components/ProductsSection";
 import ReviewsSection from "@/components/ReviewsSection";
-import OrderSection from "@/components/OrderSection";
-import FooterSection from "@/components/FooterSection";
+import TrustCertificateSection from "@/components/TrustCertificateSection";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background font-bengali">
+      {/* <OfferCountdownBar /> */}
       <HeroSection />
       <BenefitsSection />
+      <TrustCertificateSection />
       <PricingBanner />
       <ProductsSection />
       <ReviewsSection />

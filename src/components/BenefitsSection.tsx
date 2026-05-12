@@ -34,7 +34,7 @@ const BenefitsSection = () => {
               অর্ডার করতে চাই
             </a>
             <a
-              href="https://wa.me/8801821735055"
+              href="https://wa.me/8801618109505"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[hsl(142,70%,40%)] text-primary-foreground px-8 py-3 rounded-lg text-lg font-bold hover:opacity-90 transition-opacity"

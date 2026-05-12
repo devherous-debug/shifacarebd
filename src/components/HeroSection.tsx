@@ -1,5 +1,5 @@
-import { Phone, Globe } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
+import { Globe, Phone } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -28,8 +28,8 @@ const HeroSection = () => {
               মায়ের হাসি
             </h2>
             <div className="flex flex-col sm:flex-row gap-3 mt-6 text-primary-foreground text-sm">
-              <a href="tel:01821735055" className="flex items-center gap-2 hover:text-accent transition-colors">
-                <Phone size={16} /> 01821-735055
+              <a href="tel:01618109505" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <Phone size={16} /> 01618-109505
               </a>
               <a href="https://shifacarebd.shop" className="flex items-center gap-2 hover:text-accent transition-colors">
                 <Globe size={16} /> www.shifacarebd.shop
@@ -55,7 +55,7 @@ const HeroSection = () => {
           অর্ডার করতে চাই
         </a>
         <a
-          href="https://wa.me/8801821735055"
+          href="https://wa.me/8801618109505"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-[hsl(142,70%,40%)] text-primary-foreground px-8 py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-opacity"
