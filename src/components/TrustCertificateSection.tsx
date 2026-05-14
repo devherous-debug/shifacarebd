@@ -1,5 +1,5 @@
 import { Hand } from "lucide-react";
-import certificateImg from "@/assets/bcsir-certificate.png";
+import certificateImg from "@/assets/certificate.jpeg";
 
 const TrustCertificateSection = () => {
   return (
@@ -19,7 +19,7 @@ const TrustCertificateSection = () => {
       <div className="mx-auto max-w-2xl px-4 pt-8 md:pt-10">
         <img
           src={certificateImg}
-          alt="BCSIR বিশ্লেষণ প্রতিবেদন: অ্যাশ-শিফা পেইন রিলিফ অয়েল — ত্বকের জন্য নগণ্য উদ্দীপনা (PII ০.০০)"
+          alt="শিফা কেয়ার — সরকারি পরীক্ষাগারের সার্টিফিকেট ও বিশ্লেষণ প্রতিবেদন"
           className="w-full rounded-lg border border-primary-foreground/15 bg-card shadow-card"
           loading="lazy"
           decoding="async"
