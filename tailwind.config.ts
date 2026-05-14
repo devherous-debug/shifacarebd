@@ -14,7 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        bengali: ['"Hind Siliguri"', 'sans-serif'],
+        /** Inter primary; Hind Siliguri fallback for Bengali (see --font-sans) */
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        bengali: ["var(--font-sans)", "ui-sans-serif", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

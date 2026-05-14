@@ -9,7 +9,7 @@ import TrustCertificateSection from "@/components/TrustCertificateSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background font-bengali">
+    <div className="min-h-screen bg-background">
       {/* <OfferCountdownBar /> */}
       <HeroSection />
       <BenefitsSection />
