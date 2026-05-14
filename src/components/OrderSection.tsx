@@ -1,17 +1,36 @@
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { isSupabaseConfigured } from "@/lib/supabase";
+import { submitStorefrontOrder } from "@/lib/storefront-order";
 
 const OrderSection = () => {
   const [form, setForm] = useState({ name: "", phone: "", address: "", product: "oil", quantity: "1" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.phone || !form.address) {
       toast.error("অনুগ্রহ করে সব তথ্য পূরণ করুন");
       return;
     }
-    toast.success("আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে! শীঘ্রই আমরা আপনার সাথে যোগাযোগ করবো।");
-    setForm({ name: "", phone: "", address: "", product: "oil", quantity: "1" });
+
+    if (!isSupabaseConfigured) {
+      toast.error("অর্ডার সার্ভার কনফিগার করা নেই। পরে আবার চেষ্টা করুন বা হোয়াটসঅ্যাপে যোগাযোগ করুন।");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await submitStorefrontOrder(form);
+      toast.success("আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে! শীঘ্রই আমরা আপনার সাথে যোগাযোগ করবো।");
+      setForm({ name: "", phone: "", address: "", product: "oil", quantity: "1" });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "অর্ডার পাঠানো যায়নি";
+      toast.error(message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -30,7 +49,7 @@ const OrderSection = () => {
             <p className="text-muted-foreground text-sm">(ঢাকার ভিতরে ডেলিভারি ফ্রি, ঢাকার বাইরে কুরিয়ার)</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4">
             <div>
               <label className="block text-foreground font-medium mb-1">আপনার নাম *</label>
               <input
@@ -39,6 +58,7 @@ const OrderSection = () => {
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className="w-full border border-input rounded-lg px-4 py-3 bg-background text-foreground focus:ring-2 focus:ring-ring outline-none"
                 placeholder="পুরো নাম লিখুন"
+                disabled={submitting}
               />
             </div>
             <div>
@@ -49,6 +69,7 @@ const OrderSection = () => {
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
                 className="w-full border border-input rounded-lg px-4 py-3 bg-background text-foreground focus:ring-2 focus:ring-ring outline-none"
                 placeholder="01XXXXXXXXX"
+                disabled={submitting}
               />
             </div>
             <div>
@@ -59,6 +80,7 @@ const OrderSection = () => {
                 className="w-full border border-input rounded-lg px-4 py-3 bg-background text-foreground focus:ring-2 focus:ring-ring outline-none"
                 rows={3}
                 placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন"
+                disabled={submitting}
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -68,6 +90,7 @@ const OrderSection = () => {
                   value={form.product}
                   onChange={(e) => setForm({ ...form, product: e.target.value })}
                   className="w-full border border-input rounded-lg px-4 py-3 bg-background text-foreground focus:ring-2 focus:ring-ring outline-none"
+                  disabled={submitting}
                 >
                   <option value="oil">পেইন রিলিফ অয়েল</option>
                   <option value="balm">পেইন রিলিফ বাম</option>
@@ -80,6 +103,7 @@ const OrderSection = () => {
                   value={form.quantity}
                   onChange={(e) => setForm({ ...form, quantity: e.target.value })}
                   className="w-full border border-input rounded-lg px-4 py-3 bg-background text-foreground focus:ring-2 focus:ring-ring outline-none"
+                  disabled={submitting}
                 >
                   <option value="1">১ পিস</option>
                   <option value="2">২ পিস (ডিসকাউন্ট)</option>
@@ -89,8 +113,10 @@ const OrderSection = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-primary text-primary-foreground py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-opacity mt-4"
+              disabled={submitting}
+              className="inline-flex w-full items-center justify-center gap-2 bg-primary text-primary-foreground py-4 rounded-lg text-xl font-bold hover:opacity-90 transition-opacity mt-4 disabled:pointer-events-none disabled:opacity-60"
             >
+              {submitting && <Loader2 className="size-5 shrink-0 animate-spin" aria-hidden />}
               এখনই অর্ডার করুন
             </button>
           </form>
